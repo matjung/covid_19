@@ -46,18 +46,21 @@ try:
             abbreviation_canton_and_fl text,
             ncumul_tested  integer,
             ncumul_conf integer,
-            ncumul_hosp integer,
-            ncumul_ICU integer,
-            ncumul_vent integer,
+            new_hosp integer,
+            current_hosp integer,
+            current_icu integer,
+            current_vent integer,
             ncumul_released integer,
             ncumul_deceased integer,
             source text,
+            current_isolated integer,
+            current_quarantined integer,
             UNIQUE(date, abbreviation_canton_and_fl)
         )
         '''
     )
     # check if there are extra columns
-    for col in columns[11:]:
+    for col in columns[14:]:
         c.execute(f'ALTER TABLE data ADD COLUMN {col} integer;')
 
     # add entries
@@ -69,8 +72,8 @@ try:
     c.executemany(query, to_db)
     conn.commit()
 except Exception as e:
-    print("Error: %s" % e)
-    print(traceback.format_exc())
+    print("Error: %s" % e, file=sys.stderr)
+    print(traceback.format_exc(), file=sys.stderr)
     sys.exit(1)
 finally:
     conn.close()

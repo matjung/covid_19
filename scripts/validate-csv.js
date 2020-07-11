@@ -12,12 +12,15 @@ const validateSequentially = async csvFiles => {
         abbreviation_canton_and_fl: /^[A-Z]{2}$/,
         _ncumul_tested: /^(\d+)?$/,
         _ncumul_conf: /^(\d+)?$/,
-        _ncumul_hosp: /^(\d+)?$/,
-        _ncumul_ICU: /^(\d+)?$/,
-        _ncumul_vent: /^(\d+)?$/,
+        _new_hosp: /^(\d+)?$/,
+        _current_hosp: /^(\d+)?$/,
+        _current_icu: /^(\d+)?$/,
+        _current_vent: /^(\d+)?$/,
         _ncumul_released: /^(\d+)?$/,
         _ncumul_deceased: /^(\d+)?$/,
-        _source: ''
+        _source: '',
+        _current_isolated: /^(\d+)?$/,
+        _current_quarantined: /^(\d+)?$/
     };
     const requiredKeys = [
       "date",
@@ -25,12 +28,15 @@ const validateSequentially = async csvFiles => {
       "abbreviation_canton_and_fl",
       "ncumul_tested",
       "ncumul_conf",
-      "ncumul_hosp",
-      "ncumul_ICU",
-      "ncumul_vent",
+      "new_hosp",
+      "current_hosp",
+      "current_icu",
+      "current_vent",
       "ncumul_released",
       "ncumul_deceased",
-      "source"
+      "source",
+      "current_isolated",
+      "current_quarantined"
     ];
     
     const cumulativeFields = [
@@ -57,10 +63,12 @@ const validateSequentially = async csvFiles => {
             throw new Error(`Required field missing`);
         }
 
-        //check the cumulative fields
         var last = {};
         var errors = [];
+        var unique = {};
+        var today = new Date();
         parsed.forEach(function (item, index) {
+            // check if cumulative field only increase
             cumulativeFields.forEach(function(col, col_idx) {
                 if (col in last && last[col] && item[col] && parseInt(item[col]) < parseInt(last[col])) {
                     errors.push(`Row ${index+1}: cumulative field ${col}: ${item[col]} < ${last[col]}`);
@@ -69,6 +77,25 @@ const validateSequentially = async csvFiles => {
                     last[col] = item[col];
                 }
             });
+
+            // check if date is in the future
+            var abbr = item['abbreviation_canton_and_fl'];
+            var date = item['date'];
+            var dateObj = new Date(date);
+            if (dateObj.getTime() > today.getTime()) {
+                errors.push(`Row ${index+1}: date ${date} is in the future.`);
+            }
+
+            // check if there is only one entry per area and date
+            if (!(date in unique)) {
+                unique[date] = {};
+            }
+            if (abbr in unique[date]) {
+                unique[date][abbr] += 1;
+                errors.push(`Row ${index+1}: duplicate entry for date ${date}`);
+            } else {
+                unique[date][abbr] = 1;
+            }
         });
         if (errors.length > 0) {
             throw new Error(errors);
