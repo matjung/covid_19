@@ -3233,6 +3233,7 @@ date,time,abbreviation_canton_and_fl,ncumul_tested,ncumul_conf,new_hosp,current_
 2020-07-14,,FR,,1274,,1,1,,155,85,https://www.fr.ch/sites/default/files/2020-07/200714_statistiques_situation_COVID_FR13.xlsx,,
 2020-07-14,,JU,,257,,1,0,,,7,https://www.jura.ch/Htdocs/Files/v/34859.xlsx/Departements/CHA/SIC/Carrousel/Coronavirus/Cornavirus/Chiffres/donnees_14_07.xlsx?download=1,,
 2020-07-14,,LU,,796,,4,3,,,20,https://gesundheit.lu.ch/themen/Humanmedizin/Infektionskrankheiten/Coronavirus,21,75
+2020-07-14,,NW,,126,,0,0,,,3,http://www.nw.ch/coronastatistik,,
 2020-07-14,,SG,,920,,,,,,39,https://www.sg.ch/tools/informationen-coronavirus.html,,
 2020-07-14,,VS,,2092,0,7,2,0,307,153,https://www.vs.ch/de/web/coronavirus,,
 2020-07-14,08:00,AG,,1403,,,,,,47,https://www.ag.ch/de/themen_1/coronavirus_2/coronavirus.jsp,63,203
@@ -3246,3 +3247,4 @@ date,time,abbreviation_canton_and_fl,ncumul_tested,ncumul_conf,new_hosp,current_
 2020-07-14,10:00,TG,,413,2,6,1,,69,18,https://www.tg.ch/news/fachstab-gesundheit-coronavirus.html/10552,,
 2020-07-14,13:30,GL,,131,,0,,,,13,https://www.gl.ch/public/upload/assets/29702/COVID-19_Fallzahlen_Kanton_Glarus.xlsx,,
 2020-07-14,14:30,ZH,,4137,,24,,6,,133,https://www.zh.ch/de/gesundheit/coronavirus.html,152,418
+2020-07-14,15:30,OW,,88,,0,,,,0,https://www.ow.ch/de/verwaltung/dienstleistungen/?dienst_id=5962,,
